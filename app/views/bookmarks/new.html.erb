@@ -1,0 +1,11 @@
+<div class="container mt-4">
+  <h1>Ajouter un film à <%= @list.name %></h1>
+
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.input :movie_id, collection: Movie.all, prompt: "Choisis un film", label_method: :title %>
+    <%= f.input :comment %>
+    <%= f.button :submit, "Ajouter", class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "Retour à la liste", list_path(@list), class: "btn btn-link mt-3" %>
+</div>

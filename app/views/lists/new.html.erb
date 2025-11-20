@@ -1,0 +1,11 @@
+<div class="container mt-4">
+  <h1>Créer une liste</h1>
+
+  <%= simple_form_for @list do |f| %>
+    <%= f.input :name %>
+    <%= f.button :submit, "Créer", class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "Retour", lists_path, class: "btn btn-link mt-2" %>
+</div>
+

@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h1><%= @list.name %></h1>
+
+  <h2 class="mt-4">Films dans cette liste</h2>
+
+  <div class="row">
+    <% @list.bookmarks.each do |bookmark| %>
+      <% movie = bookmark.movie %>
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card h-100">
+          <%= image_tag movie.poster_url, class: "card-img-top" if movie.poster_url.present? %>
+          <div class="card-body">
+            <h3 class="card-title"><%= movie.title %></h3>
+            <p><%= movie.overview %></p>
+            <p><strong>Note :</strong> <%= movie.rating %></p>
+            <p><em>Commentaire :</em> <%= bookmark.comment %></p>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <%= button_to "Supprimer",
+                          bookmark_path(bookmark),
+                          method: :delete,
+                          data: { confirm: "Supprimer ce bookmark ?" },
+                          class: "btn btn-danger btn-sm" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <h2>Ajouter un film à cette liste</h2>
+
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.input :movie_id, collection: Movie.all, prompt: "Choisis un film", label_method: :title %>
+    <%= f.input :comment %>
+    <%= f.button :submit, "Ajouter", class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "Retour aux listes", lists_path, class: "btn btn-link mt-3" %>
+</div>
