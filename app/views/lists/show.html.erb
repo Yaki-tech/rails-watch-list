@@ -1,41 +1,59 @@
 <div class="container mt-4">
-  <h1><%= @list.name %></h1>
-
-  <h2 class="mt-4">Films dans cette liste</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-4"><%= @list.name %></h1>
+    <%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+  </div>
 
   <div class="row">
-    <% @list.bookmarks.each do |bookmark| %>
-      <% movie = bookmark.movie %>
-      <div class="col-12 col-md-4 mb-3">
+    <% @bookmarks.each do |bookmark| %>
+      <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100">
-          <%= image_tag movie.poster_url, class: "card-img-top" if movie.poster_url.present? %>
-          <div class="card-body">
-            <h3 class="card-title"><%= movie.title %></h3>
-            <p><%= movie.overview %></p>
-            <p><strong>Note :</strong> <%= movie.rating %></p>
-            <p><em>Commentaire :</em> <%= bookmark.comment %></p>
-          </div>
-          <div class="card-footer d-flex justify-content-between">
-            <%= button_to "Supprimer",
-                          bookmark_path(bookmark),
-                          method: :delete,
-                          data: { confirm: "Supprimer ce bookmark ?" },
-                          class: "btn btn-danger btn-sm" %>
+          <% if bookmark.movie.poster_url.present? %>
+            <%= image_tag bookmark.movie.poster_url, class: "card-img-top", alt: bookmark.movie.title, style: "height: 400px; object-fit: cover;" %>
+          <% else %>
+            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 400px;">
+              <i class="fas fa-film fa-3x text-white"></i>
+            </div>
+          <% end %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= bookmark.movie.title %></h5>
+            <p class="card-text flex-grow-1"><%= truncate(bookmark.movie.overview, length: 150) %></p>
+
+            <div class="mb-2">
+              <strong>Rating:</strong>
+              <span class="badge bg-warning text-dark">
+                <%= bookmark.movie.rating %> / 10
+              </span>
+            </div>
+
+            <% if bookmark.comment.present? %>
+              <div class="mb-3">
+                <strong>Comment:</strong>
+                <p class="text-muted"><%= bookmark.comment %></p>
+              </div>
+            <% end %>
+
+            <div class="mt-auto">
+              <%= link_to bookmark_path(bookmark),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure you want to delete this bookmark?"
+                  },
+                  class: "text-danger text-decoration-none" do %>
+                <i class="fas fa-trash-alt"></i> Delete
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     <% end %>
   </div>
 
-  <hr>
-
-  <h2>Ajouter un film à cette liste</h2>
-
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.input :movie_id, collection: Movie.all, prompt: "Choisis un film", label_method: :title %>
-    <%= f.input :comment %>
-    <%= f.button :submit, "Ajouter", class: "btn btn-primary" %>
+  <% if @bookmarks.empty? %>
+    <div class="alert alert-info text-center">
+      <p class="mb-3">No movies in this list yet.</p>
+      <%= link_to "Add your first movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+    </div>
   <% end %>
-
-  <%= link_to "Retour aux listes", lists_path, class: "btn btn-link mt-3" %>
 </div>

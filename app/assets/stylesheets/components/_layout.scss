@@ -1,0 +1,134 @@
+body {
+  font-family: $body-font;
+  background: linear-gradient(160deg, #050f2a 0%, #0f1f3d 35%, #1a2d4f 65%, #1f4e59 100%);
+  color: #f4f6fb;
+  min-height: 100vh;
+}
+
+.app-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper {
+  flex: 1;
+  padding: 32px 0 80px;
+}
+
+.app-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-title {
+  font-family: $headers-font;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: clamp(32px, 4vw, 42px);
+  margin-bottom: 16px;
+}
+
+.text-muted {
+  color: rgba(#f4f6fb, 0.65);
+}
+
+.btn {
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 10px 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(120deg, #ff7b63, #ffb347);
+  border: none;
+  color: #0d1b2a;
+  box-shadow: 0 10px 20px rgba(255, 123, 99, 0.35);
+
+  &:hover {
+    background: linear-gradient(120deg, #ff9d63, #ffd26f);
+    transform: translateY(-1px);
+    color: #0d1b2a;
+  }
+}
+
+.btn-outline-light {
+  border-color: rgba(#ffffff, 0.5);
+  color: #ffffff;
+
+  &:hover {
+    background: rgba(#ffffff, 0.1);
+    color: #ffffff;
+  }
+}
+
+.app-navbar {
+  backdrop-filter: blur(10px);
+  background: rgba(8, 15, 35, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  .navbar-brand {
+    font-family: $headers-font;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  a {
+    color: rgba(#ffffff, 0.85);
+    font-weight: 600;
+    margin-right: 16px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+.hero {
+  padding: 80px 0;
+  text-align: center;
+  color: #ffffff;
+
+  .hero-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 14px;
+    color: rgba(#ffffff, 0.7);
+  }
+
+  .hero-title {
+    font-family: $headers-font;
+    font-size: clamp(42px, 6vw, 62px);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 12px 0;
+  }
+
+  .hero-copy {
+    font-size: 18px;
+    color: rgba(#ffffff, 0.75);
+    max-width: 560px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+}

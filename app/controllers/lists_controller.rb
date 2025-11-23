@@ -5,6 +5,7 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
+    @bookmarks = @list.bookmarks.includes(:movie).order('movies.title ASC')
     @bookmark = Bookmark.new
   end
 
@@ -26,5 +27,5 @@ class ListsController < ApplicationController
   def list_params
     params.require(:list).permit(:name)
   end
-  
+
 end

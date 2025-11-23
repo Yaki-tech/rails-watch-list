@@ -1,0 +1,23 @@
+
+<% movie = bookmark.movie %>
+<% poster_url = movie.poster_url.presence || image_path("banner.jpg") %>
+
+<div class="movie-card">
+  <div class="movie-card__poster" style="background-image: url('<%= poster_url %>');"></div>
+
+  <div class="movie-card__content">
+    <h3><%= movie.title %></h3>
+    <p><%= truncate(movie.overview, length: 130) %></p>
+    <p class="movie-card__rating">⭐ <%= movie.rating %> / 10</p>
+    <p><em><%= bookmark.comment %></em></p>
+  </div>
+
+  <div class="movie-card__footer">
+    <span class="text-muted">Ajouté par vous</span>
+    <%= button_to "Retirer",
+                  bookmark_path(bookmark),
+                  method: :delete,
+                  data: { confirm: "Supprimer ce bookmark ?" },
+                  class: "btn btn-sm btn-outline-light" %>
+  </div>
+</div>

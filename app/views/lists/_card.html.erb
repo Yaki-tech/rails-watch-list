@@ -1,0 +1,12 @@
+
+<div class="list-card">
+  <div>
+    <p class="text-muted text-uppercase mb-2">Collection</p>
+    <h2><%= list.name %></h2>
+    <p><%= pluralize(list.bookmarks.count, "film") %> soigneusement sélectionné(s)</p>
+  </div>
+
+  <div class="list-card__actions">
+    <%= link_to "Ouvrir", list_path(list), class: "btn btn-outline-light btn-sm" %>
+  </div>
+</div>
